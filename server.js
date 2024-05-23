@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const port = 5000;
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // MongoDB connection
 const mongoUri = process.env.MONGO_URI;
@@ -27,8 +29,12 @@ app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
 
-app.get('/test', (req, res) => {
-  res.send('Hot reload is working!');
+// API route to get data
+app.get('/api/data', (req, res) => {
+  const data = {
+    message: 'Hello from the backend!',
+  };
+  res.json(data);
 });
 
 app.listen(port, () => {
